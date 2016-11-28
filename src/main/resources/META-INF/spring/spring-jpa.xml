@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			   http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+               http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx.xsd 
+               http://www.springframework.org/schema/data/jpa
+			   http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!--#### PER SUPPORTO JPA IMPL AUTOMATICA ### -->
+	<!-- The jpa:repositories scans for all interfaces that extend JpaRepository 
+		and creates implementations for use at runtime. -->
+	<jpa:repositories base-package="it.bologna.devastapp.persistence" />
+
+
+	<!-- DA spring persistence with hibernate mode="aspectj" gestisce le transazioni 
+		con aspectj, l'altro modo e tramite spring proxy (default) -->
+	<!-- <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/> -->
+	<!-- DA springbyexample -->
+	<!-- Abilita le annotazioni relative alla gestione delle transazioni -->
+	<tx:annotation-driven />
+
+	<!-- Transaction Config -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<!-- This will ensure that hibernate or jpa exceptions are automatically 
+		translated into Spring's generic DataAccessException hierarchy -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<!-- SERVE ? <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" 
+		/> -->
+
+	<!-- Database LOB Handling: large object handling (clob e blob) -->
+	<!-- SERVE? <bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" 
+		/> -->
+
+
+	<!-- JPA Entity Manager Factory ALTERNATIVE -->
+	<!-- <bean id="entityManagerFactory" -->
+	<!-- class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" -->
+	<!-- p:dataSource-ref="devastappDataSource" /> -->
+
+	<!-- Contact Application DAO -->
+	<!-- Spring by Example Version 1.3 Spring by Example 206 -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="devastappDataSource" p:persistenceUnitName="devastappPersistenceUnit">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<!-- <prop key="hibernate.format_sql">true</prop> -->
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<!-- Hibernate Search - INIZIO -->
+				<prop key="hibernate.search.default.directory_provider">${hibernate.search.default.directory_provider}</prop>
+				<prop key="hibernate.search.default.indexBase">${hibernate.search.default.indexBase}</prop>
+				<!-- Hibernate Search - FINE -->
+			</props>
+		</property>
+	</bean>
+
+
+
+	<!-- ######## JPA Auditing ######### vedi SpringExample pag. 206 e riferimenti -->
+	<!-- Area_Svilupo -->
+	<jpa:auditing auditor-aware-ref="auditorAware" />
+	<bean id="auditorAware"
+		class="it.bologna.devastapp.persistence.entity.DefaultAuditorBean" />
+</beans>

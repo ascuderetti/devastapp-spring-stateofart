@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/util 
+              http://www.springframework.org/schema/util/spring-util.xsd
+              http://www.springframework.org/schema/task
+        	  http://www.springframework.org/schema/task/spring-task.xsd
+              http://www.springframework.org/schema/integration
+              http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<!--######################################################### -->
+	<!-- RIFERIMENTI GENERALI: -->
+	<!-- 1. Libro: Spring Integration in Action.pdf -->
+	<!-- 2. Reference: http://docs.spring.io/spring-integration/docs/3.0.1.RELEASE/reference/html/ -->
+	<!-- 3. Esempio Principale: da Libro "Spring Integration in Action.pdf" -->
+	<!-- progetto "flight-booking" -->
+	<!--######################################################## -->
+
+	<!-- Chiavi Service -->
+	<util:constant id="iphoneServiceKey"
+		static-field="it.bologna.devastapp.business.notifications.IphoneServiceImpl.KEY_SPRING_IPHONE_SERVICE" />
+	<util:constant id="androidServiceKey"
+		static-field="it.bologna.devastapp.business.notifications.AndroidServiceImpl.KEY_SPRING_ANDROID_SERVICE" />
+	<util:constant id="creaNotificheTelefonoServiceKey"
+		static-field="it.bologna.devastapp.business.notifications.CreaNotificheTelefonoServiceImpl.KEY_SPRING_CREA_NOTIFICHE_TELEFONO_SERVICE" />
+
+
+	<!--######################################################### -->
+	<!-- POLLER - definisce la frequenza di polling su canali queue -->
+	<!-- default, valido per tutto il contesto -->
+	<!--######################################################## -->
+	<int:poller id="defaultPoller" default="true" fixed-rate="5000" />
+
+
+	<!--######################################################### -->
+	<!-- GATEWAY ENDPOINT che collega il "MONDO WEBAPP" al mondo "SPRING INTEGRATION" -->
+	<!-- Tipo: Async - BiDirezionale (ma non torna mai nulla) -->
+	<!--######################################################## -->
+	<int:gateway id="notificheGateway"
+		service-interface="it.bologna.devastapp.business.notifications.NotificheGateway"
+		default-request-channel="notificaCheckToFollowOfferta" />
+
+	<!--######################################################### -->
+	<!-- QUEUE CHANNEL - Tipo: Polling - Async - OneToOne -->
+	<!-- Ho usato questo tipo di canale così si può liberare subito il notificheGateway -->
+	<!-- pronto a pubblicare nuove richieste nella coda (finche' non si supera -->
+	<!-- la capacity supportata) -->
+	<!--######################################################## -->
+	<int:channel id="notificaCheckToFollowOfferta">
+		<int:queue capacity="40" />
+	</int:channel>
+
+	<!-- Canale per Notifiche ai Follow locale -->
+	<int:channel id="notificaOffertaFollowLocale">
+		<int:queue capacity="40" />
+	</int:channel>
+
+
+	<!--######################################################### -->
+	<!-- SPLITTER - CreaMessaggiNotifiche -->
+	<!-- Prende in Input l'offerta, recupera gli Utenti follow dell'offerta -->
+	<!-- e restituisce una lista di messaggi di notifica (una per ogni utente) -->
+	<!-- ESEMPIO SPLITTER: http://techiquest.blogspot.it/2012/01/spring-integration-splitter-aggregator.html -->
+	<!--######################################################## -->
+	<int:splitter id="splitterCheckToFollow" input-channel="notificaCheckToFollowOfferta"
+		output-channel="notificheTelefono" ref="#{creaNotificheTelefonoServiceKey}"
+		method="creaNotificheCheckToFollow" />
+
+	<!-- Crea le notifiche per i follow locali -->
+	<int:splitter id="splitterFollowLocale" input-channel="notificaOffertaFollowLocale"
+		output-channel="notificheTelefono" ref="#{creaNotificheTelefonoServiceKey}"
+		method="creaNotificheToFollowLocale" />
+
+
+
+	<!--######################################################### -->
+	<!-- ROUTER Payload Value -->
+	<!-- TODO: gestire "default-output-channel" come canale di eccezione -->
+	<!-- Oppure usare: resolution-required (se non matcha lancia un messageException) -->
+	<!--######################################################## -->
+	<int:router input-channel="notificheTelefono" expression="payload.tipoTelefono">
+		<int:mapping value="ANDROID" channel="androidNotifiche" />
+		<int:mapping value="IPHONE" channel="iphoneNotifiche" />
+	</int:router>
+
+
+	<!-- TODO: gestione errori - Publish-Subscribe 1 a 1 async -->
+	<!--######################################################### -->
+	<!-- EXECUTOR CHANNEL - Publish-Subscribe 1 a 1 async, ognuno ha un task 
+		executor associato, uno per ogni canale ocsì c'è un thread per ogni canale -->
+	<!-- da Just Spring Integration -->
+	<!--######################################################## -->
+	<int:channel id="androidNotifiche">
+		<int:dispatcher task-executor="taskSchedulerAndroid" />
+	</int:channel>
+	<int:channel id="iphoneNotifiche">
+		<int:dispatcher task-executor="taskSchedulerIphone" />
+	</int:channel>
+	<!-- TODO: teoria + configurare -->
+	<task:executor id="taskSchedulerAndroid" />
+	<task:executor id="taskSchedulerIphone" />
+
+	<!-- OUTBOUND - diversamente dal Gateway sono un canale di uscita definitivo 
+		da contesto spring integration -->
+	<int:outbound-channel-adapter channel="androidNotifiche"
+		ref="#{androidServiceKey}" method="inviaNotifica" />
+
+	<int:outbound-channel-adapter channel="iphoneNotifiche"
+		ref="#{iphoneServiceKey}" method="inviaNotifica" />
+
+
+	<!-- <int:service-activator id="androidNotificheId" -->
+	<!-- ref="androidNotificheService" method="inviaNotifica" input-channel="androidNotifiche" 
+		/> -->
+
+	<!-- <int:service-activator id="iphoneNotificheId" -->
+	<!-- ref="iphoneNotificationsService" method="inviaNotifica" input-channel="iphoneNotifiche" 
+		/> -->
+
+	<!-- ESEMPIO PUB SUBSCRIBE IN BROADCAST ASYNC: -->
+	<!-- "task-executor" crea un thread per ogni subscribe (altrimenti i subscriber 
+		vengono eseguiti in sequenza in un unico thread) -->
+	<!-- <int:publish-subscribe-channel id="notificheDevicePubSub" -->
+	<!-- task-executor="taskScheduler" /> -->
+
+	<!-- TODO aggiungere tipo di dato -->
+	<!-- <int:service-activator id="androidNotifiche" -->
+	<!-- ref="androidNotificheService" method="inviaNotifica" -->
+	<!-- input-channel="notificheDevicePubSub" /> -->
+	<!-- <int:service-activator id="iphoneNotifiche" -->
+	<!-- ref="iphoneNotificationsService" method="inviaNotifica" -->
+	<!-- input-channel="notificheDevicePubSub" /> -->
+
+
+
+	<!-- TODO ESEMPIO SPRING INTEGRATION - APPROFONDIRE task-executor e poller 
+		fixed-rate="1000 -->
+
+	<!-- <int:publish-subscribe-channel id="mailChannel" -->
+	<!-- task-executor="taskScheduler" /> -->
+	<!-- <task:executor id="elementExecutor" pool-size="10" /> -->
+
+	<!-- <publish-subscribe-channel id="tripNotifications" -->
+	<!-- datatype="siia.booking.domain.notifications.TripNotification" -->
+	<!-- task-executor="taskScheduler"/> -->
+	<!-- <int:service-activator id="mailer" ref="awsEmailService" method="sendMail" 
+		input-channel="mailChannel"> -->
+	<!-- <int:poller fixed-rate="1000"/> -->
+	<!-- </int:service-activator> -->
+
+	<!--######################################################### -->
+	<!-- ROUTER Header Value - ESEMPIO -->
+	<!--######################################################## -->
+	<!-- <int:header-value-router input-channel="notificheDevice" -->
+	<!-- header-name="TIPO_CELL" ignore-send-failures="false"> -->
+	<!-- <int:mapping value="IPHONE" channel="iphoneNotifiche" /> -->
+	<!-- <int:mapping value="ANDROID" channel="androidNotifiche" /> -->
+	<!-- </int:header-value-router> -->
+
+</beans:beans>

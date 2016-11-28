@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="it" ng-app="devastapp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+		<title>Devastapp Bar Console</title>
+
+		<!-- CSS - Bootstrap core CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<!-- CSS - Custom styles for this template -->
+		<link href="css/dashboard.css" rel="stylesheet">
+		<!-- CSS Mappa -->
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	</head>
+
+	<body ng-controller="MainController as mainCntr">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span><span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">{{gestore.nome}}</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li ng-repeat="gestore in gestori">
+									<a href="#" ng-click="mainCntr.setGestore(gestore)">{{gestore.nome}}</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a>Profile</a>
+						</li>
+						<li>
+							<a>Help</a>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<input type="text" class="form-control" placeholder="Search...">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<section ng-controller="TabController as tab">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3 col-md-2 sidebar">
+						<ul class="nav nav-sidebar">
+							<legend>
+								Servizi
+							</legend>
+							<li ng-class="{ active:tab.isSet(1) }">
+								<a href="#offerta" ng-click="tab.setTab(1)">Offerta</a>
+							</li>
+							<li ng-class="{ active:tab.isSet(2) }">
+								<a href="#fidellizzazione" ng-click="tab.setTab(2)">Fidelizzazione</a>
+							</li>
+						</ul>
+						<ul class="nav nav-sidebar">
+							<legend>
+								Statistiche
+							</legend>
+							<li ng-class="{ active:tab.isSet(3) }">
+								<a href="#dashboard" ng-click="tab.setTab(3)">Statistiche - Check Locali</a>
+							</li>
+							<li ng-class="{ active:tab.isSet(4) }">
+								<a href="#dashboard" ng-click="tab.setTab(4)">Statistiche - Check per Zona</a>
+							</li>
+							<li ng-class="{ active:tab.isSet(5) }">
+								<a href="#dashboard" ng-click="tab.setTab(5)">Statistiche - Profili Clienti</a>
+							</li>
+							<li ng-class="{ active:tab.isSet(6) }">
+								<a href="#dashboard" ng-click="tab.setTab(6)">Statistiche - Fidelizzazione</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /container -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main text-center">
+					<div ng-show="tab.isSet(1)">
+						<div class="col-md-4">
+							<!--  Offerta Form -->
+							<form class="form-signin" name="formOfferta" ng-controller="OffertaController as offContr" ng-submit="newOfferta(gestore)">
+								<h2 class="form-signin-heading">Compila i campi dell'offerta</h2>
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<input ng-model="offerta.titolo" type="text" class="form-control" placeholder="Titolo" ng-required="true" autofocus>
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<input ng-model="offerta.descrizione" type="text" class="form-control" placeholder="Descrizione" ng-required="true" autofocus>
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<select ng-model="offerta.quantita" placeholder="Quantità" class="form-control" ng-required="true">
+												<option value="10">10</option>
+												<option value="30">30</option>
+												<option value="50">50</option>
+											</select>
+											<!-- <input ng-model="offerta.quantita" type="number" step="1" min="0" class="form-control" placeholder="Quantità" ng-required="true" autofocus> -->
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<div class="input-group input-group-lg">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+												<input ng-model="offerta.prezzoUnitarioPieno" type="number" step="any" min="0" class="form-control" placeholder="Prezzo Pieno" ng-required="true" autofocus>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<div class="input-group input-group-lg">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+												<input ng-model="offerta.prezzoUnitarioScontato" type="number" step="any" min="0" class="form-control" placeholder="Prezzo Scontato" ng-required="true" autofocus>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-11">
+											<select ng-model="offerta.idProdotto" placeholder="Seleziona il tipo di drink" ng-options="prodotto.id as prodotto.descrizione for prodotto in prodotti" class="form-control" ng-required="true"></select>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-11">
+											<select ng-model="offerta.idLocale" placeholder="Seleziona il Locale" ng-options="locale.id as locale.nome for locale in gestore.listaLocali" class="form-control" ng-required="true"></select>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row top-spacer">
+									<fieldset class="form-group form-group-lg">
+										<div ng-controller="DatepickerDemoCtrl as dateCntr">
+											<div class="col-md-6">
+												<label class="control-label"><i	class="fa fa-calendar"></i> Data Inizio</label>
+												<br>
+												<p class="input-group">
+													<!-- Data -->
+													<input type="text" ng-change="changed(offerta)" ng-model="offerta.dataInizio" class="form-control" datepicker-popup="{{format}}" name="data" is-open="opened" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-default" ng-click="open($event)">
+															<i class="glyphicon glyphicon-calendar"></i>
+														</button> </span>
+												</p>
+											</div>
+											<div class="col-md-5">
+												<label class="control-label"><i class="fa fa-calendar"></i> Ora Inizio</label>
+												<br>
+												<!-- Ora -->
+												<div ng-model="offerta.dataInizio" class="dropdown timepicker">
+													<div class="control-group input-append dropdown-toggle">
+														<p class="input-group">
+															<input class="form-control" type="text" placeholder="Ora" value="{{offerta.dataInizio|date:'HH:mm'}}" />
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-default" data-toggle="timepicker">
+																	<i class="glyphicon glyphicon-time"></i>
+																</button> </span>
+														</p>
+													</div>
+													<div class="dropdown-menu" ng-click="clicked($event)">
+														<timepicker ng-model="offerta.dataInizio" ng-change="changed(offerta)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+													</div>
+												</div>
+											</div>
+											<div class="">
+												<input ng-hide="true" ng-model="offerta.dataFine" type="text" name="dataFine" />
+											</div>
+											<div class="col-md-11">
+												<!-- Label Riepilogo data inizio fine -->
+												<div class="alert alert-info" role="alert">
+													Il <em>{{offerta.dataInizio | date:'dd-MMMM-yyyy' }}</em>
+													l'offerta inizierà alle <em>{{offerta.dataInizio |
+													date:'shortTime' }}</em> e finirà alle <em>{{offerta.dataFine
+													| date:'shortTime'}} </em>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-11">
+											<button class="btn btn-lg btn-primary btn-block" type="submit">
+												Inserisci
+											</button>
+										</div>
+									</fieldset>
+								</div>
+							</form>
+						</div>
+						<!-- MAPPA -->
+						<div class="">
+							<div class="col-md-6">
+								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+
+					<div ng-show="tab.isSet(2)">
+						<!-- <div class="col-md-11">
+						<div class="jumbotron">
+						<div class="container">
+						<h1 class="form-signin-heading text-center">FIDELIZZAZIONE</h1>
+						<p>
+						Imposta i campi...
+						</p>
+						</div>
+						</div>
+						</div> -->
+						<div class="col-md-11 text-center">
+							<!-- <div class="jumbotron">
+							<h2 class="form-signin-heading text-center">FIDELIZZAZIONE</h2>
+							</div> -->
+							<!-- Fidelizzazione Form -->
+							<form class="form-signin" name="formFidelizzazione" ng-controller="FidelizzazioneController as fidContr" ng-submit="newFidelizzazione(gestore)">
+
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-11">
+											<select ng-model="fidelizzazione.idLocale" placeholder="Seleziona il Locale" ng-options="locale.id as locale.nome for locale in gestore.listaLocali" class="form-control" ng-required="true"></select>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="row top-spacer">
+									<fieldset class="form-group form-group-lg">
+										<div ng-controller="DatepickerDemoCtrl as dateCntr">
+											<div class="col-md-6">
+												<label class="control-label"><i	class="fa fa-calendar"></i> Data Inizio </label>
+												<br>
+												<p class="input-group">
+													<!-- Data -->
+													<input type="text" ng-change="changed(fidelizzazione)" ng-model="fidelizzazione.dataInizio" class="form-control" datepicker-popup="{{format}}" name="data" is-open="opened" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-default" ng-click="open($event)">
+															<i class="glyphicon glyphicon-calendar"></i>
+														</button> </span>
+												</p>
+											</div>
+
+											<div class="col-md-5">
+												<label class="control-label"><i	class="fa fa-calendar"></i> Durata </label>
+												<select ng-model="fidelizzazione.dataFine" placeholder="Durata" class="form-control" ng-required="true">
+													<option value="" selected disabled="disabled">Seleziona la durata</option>
+													<option value="3 Mesi">3 Mesi</option>
+													<option value="6 Mesi">6 Mesi</option>
+													<option value="12 Mesi">1 Anno</option>
+												</select>
+											</div>
+											<div class="col-md-11">
+												<!-- Label Riepilogo data inizio fine -->
+												<div class="alert alert-info" role="alert">
+													Il servizio di fidelizzazione sarà attivo dal <em>{{fidelizzazione.dataInizio | date:'dd-MMMM-yyyy' }}</em>
+													per <em>{{fidelizzazione.dataFine}} </em>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-5">
+											<div class="input-group input-group-lg">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+												<input ng-model="fidelizzazione.quantita" type="number" step="1" min="0" class="form-control" placeholder="Quante volte deve ritornare al tuo locale?" ng-required="true" autofocus>
+											</div>
+
+										</div>
+										<div class="col-md-6">
+											<div class="input-group input-group-lg">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
+												<!-- <select ng-model="fidelizzazione.idProdotto" placeholder="Seleziona il tipo di drink" ng-options="prodotto.id as prodotto.descrizione for prodotto in prodotti" class="form-control" ng-required="true"></select> -->
+												<select ng-model="fidelizzazione.premio" placeholder="Premio" class="form-control" ng-required="true">
+													<option value="" selected disabled="disabled">Seleziona il premio</option>
+													<option value="Birra">Birra</option>
+													<option value="Vino">Vino</option>
+													<option value="Cocktail">Cocktail</option>
+													<option value="Maglietta">Maglietta</option>
+													<option value="Gadget">Gadget</option>
+												</select>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="row">
+									<div class="col-md-11">
+										<fieldset class="form-group">
+											<textarea ng-model="fidelizzazione.descrizione" type="text" class="form-control" placeholder="Descrizione" ng-required="true" autofocus></textarea>
+											<!-- <input ng-model="fidelizzazione.descrizione" type="text" class="form-control" placeholder="Descrizione" ng-required="true" autofocus> -->
+										</fieldset>
+									</div>
+								</div>
+								<div class="row">
+									<fieldset class="form-group">
+										<div class="col-md-11">
+											<button class="btn btn-lg btn-primary btn-block" type="submit">
+												Attiva Servizio
+											</button>
+										</div>
+									</fieldset>
+								</div>
+						</div>
+
+					</div>
+					<div ng-show="tab.isSet(3)">
+						<img src="img/StatisticheCheckLocali.png" class="img-responsive">
+					</div>
+
+					<div ng-show="tab.isSet(4)">
+						<img src="img/StatisticheCheckZone.png" class="img-responsive">
+					</div>
+
+					<div ng-show="tab.isSet(5)">
+						<div class="row">
+							<img src="img/StatisticheProfiliClienti.png" class="img-responsive">
+						</div>
+					</div>
+
+					<div ng-show="tab.isSet(6)">
+						<img src="img/StatisticheFidelizzazione.png" class="img-responsive">
+					</div>
+				</div>
+
+			</div>
+
+		</section>
+		<!-- JS Placed at the end of the document so the pages load faster -->
+
+		<!--============================ -->
+		<!-- ==== FW E LIBRERIE JS ======-->
+		<!--============================ -->
+		<!-- Angular JS CORE -->
+		<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+		<script
+		src="http://code.angularjs.org/1.2.18/i18n/angular-locale_it-it.js"></script>
+		<!-- Componenti Bootstrap per Angular  => http://angular-ui.github.io/bootstrap/-->
+		<script src="js/lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
+		<!-- JS - MAPPA => http://leafletjs.com/download.html-->
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+		<!-- Gestione Date: http://www.datejs.com/2007/11/27/getting-started-with-datejs/ -->
+		<!-- default US => <script src="js/date.js"></script> -->
+		<script src="js/lib/date-it-IT.js"></script>
+		<!-- Utility JS varie - http://lodash.com/ -->
+		<script
+		src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+		<!-- Gestione thumbs - https://github.com/imsky/holder -->
+		<script src="js/lib/holder.js"></script>
+
+		<!--======================================== -->
+		<!-- ========= Applicazione JS ===========-->
+		<!--======================================== -->
+		<script src="js/RestUrl.js"></script>
+		<script src="js/util/DateUtils.js"></script>
+		<script src="js/home.js"></script>
+	</body>
+</html>

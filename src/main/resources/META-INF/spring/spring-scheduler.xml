@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd
+						   http://www.springframework.org/schema/task 
+						   http://www.springframework.org/schema/task/spring-task.xsd
+                           ">
+	<!-- Riferimenti: Pro Spring 3, Capitolo 15 pag.523 -->
+
+	<bean id="movimentiLocaleService"
+		class="it.bologna.devastapp.business.MovimentiLocaleServiceImpl" />
+
+	<task:scheduler id="followLocaleScheduler" pool-size="10" />
+
+	<!-- Cron: ogni 15 minuti partendo dal minuto "0" - Esempi http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger -->
+	<task:scheduled-tasks scheduler="followLocaleScheduler">
+		<task:scheduled ref="movimentiLocaleService" method="notificaFollowLocale"
+			cron="0 0/15 * * * *" />
+	</task:scheduled-tasks>
+	<!-- ogni secondo => cron="0/1 * * * * *" -->
+	<!-- ogni minuto => cron="0 0/1 * * * *" [la prima volta parte appena scatta 
+		il nuovo minuto..] -->
+
+</beans>

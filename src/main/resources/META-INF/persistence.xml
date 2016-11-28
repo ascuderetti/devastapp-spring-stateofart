@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<!-- DA springbyExample -->
+	<persistence-unit name="devastappPersistenceUnit">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<!-- Valida solo lo schema esistente (gli altri valori sono update, create-drop, che creano nuove tabelle/colonne su DB): -->
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
+			<property name="hibernate.max_fetch_depth" value="3" />
+			<!-- Register Joda DateTime support - http://www.joda.org/joda-time-hibernate/ -->
+			<property name="jadira.usertype.autoRegisterUserTypes" value="true" />
+			<property name="jadira.usertype.javaZone" value="UTC" />
+			<property name="jadira.usertype.databaseZone" value="UTC" />
+		</properties>
+	</persistence-unit>
+
+
+	<!-- DA spring persistence with hibernate -->
+	<!-- <persistence-unit name="devastappPersistenceUnit" -->
+	<!-- transaction-type="RESOURCE_LOCAL"> -->
+	<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+	<!-- <properties> -->
+	<!-- MYSQL=> org.hibernate.dialect.MySQL5Dialect -->
+	<!-- org.hibernate.dialect.HSQLDialect -->
+	<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" 
+		/> -->
+	<!-- value='create' to build a new database on each run; value='update' -->
+	<!-- to modify an existing database; value='create-drop' means the same 
+		as 'create' -->
+	<!-- but also drops tables when Hibernate closes; value='validate' makes 
+		no changes -->
+	<!-- to the database -->
+
+	<!-- ALCUNI DI QUESTI VALORI SONO NELL'ENTITY MANAGER - VEDI spring-jpa -->
+	<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
+	<!-- <property name="hibernate.show_sql" value="true" /> -->
+	<!-- <property name="hibernate.cache.use_second_level_cache" value="true"/> -->
+	<!-- <property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.SingletonEhCacheProvider"/> -->
+	<!-- <property name="hibernate.search.default.directory_provider" value="org.hibernate.search.store.FSDirectoryProvider"/> -->
+	<!-- <property name="hibernate.search.default.indexBase" value="./lucene/indexes"/> -->
+	<!-- <property name="hibernate.search.default.batch.merge_factor" value="10"/> -->
+	<!-- <property name="hibernate.search.default.batch.max_buffered_docs" -->
+	<!-- value="10"/> -->
+	<!-- </properties> -->
+	<!-- </persistence-unit> -->
+</persistence>

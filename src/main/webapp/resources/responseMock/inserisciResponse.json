@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "item": 
+  [
+    {
+      "class": "va.ior.rfo.model.common.Divisa",
+      "id": null,
+      "codiceIbisDivisa": 4,
+      "codiceIsoDivisa": "CHF",
+      "idDivisa": 4
+    },
+    {
+      "class": "va.ior.rfo.model.common.Divisa",
+      "id": null,
+      "codiceIbisDivisa": 2,
+      "codiceIsoDivisa": "USD",
+      "idDivisa": 2
+    },
+    {
+      "class": "va.ior.rfo.model.common.Divisa",
+      "id": null,
+      "codiceIbisDivisa": 10,
+      "codiceIsoDivisa": "JPY",
+      "idDivisa": 28
+    },
+    {
+      "class": "va.ior.rfo.model.common.Divisa",
+      "id": null,
+      "codiceIbisDivisa": 40,
+      "codiceIsoDivisa": "EUR",
+      "idDivisa": 89
+    },
+    {
+      "class": "va.ior.rfo.model.common.Divisa",
+      "id": null,
+      "codiceIbisDivisa": 8,
+      "codiceIsoDivisa": "GBP",
+      "idDivisa": 23
+    }
+  ]
+}

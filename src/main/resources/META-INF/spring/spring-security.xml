@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+					    http://www.springframework.org/schema/security
+					    http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- RIFERIMENTI: -->
+	<!-- 1. Pro Spring 3 pag. 577. -->
+	<!-- 2. Building-REST-Services-with-Spring.pdf -->
+
+	<!-- L'url dove sono contenute le risorse (immagini / js / css) è pubblico -->
+	<http pattern="/resources/**" security="none" />
+
+	<!-- TODO: potrei mettere la sicurezza solo a sotto url => <http pattern="/restful/**" 
+		create-session="stateless"> -->
+
+
+	<!-- APP: metto prima la BASIC e poi la DIGEST authentication -->
+	<http pattern="/app/**" use-expressions="true" entry-point-ref="digestEntryPoint">
+		<intercept-url pattern="/app/**" access="hasRole('ROLE_APP')" />
+
+		<http-basic />
+		<!-- prima filtra la basic se fallisce si usa il digestFilter -->
+		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+	</http>
+
+	<!-- APP: Bean per Digest authentication -->
+	<beans:bean id="digestFilter"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<beans:property name="userDetailsService" ref="userService" />
+		<beans:property name="authenticationEntryPoint" ref="digestEntryPoint" />
+	</beans:bean>
+	<beans:bean id="digestEntryPoint"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<beans:property name="realmName" value="devastapp" />
+		<!-- A private key to prevent modification of the nonce token -->
+		<beans:property name="key" value="devastappAppKey" />
+	</beans:bean>
+
+	<!-- Attributo <create-session="stateless">: RESTful service using Basic 
+		authentication => The attribute "create-session", which was new in Spring 
+		Security 3.1.0, was introduced to allow us to configure whether the HTTP 
+		session will be created upon authentication. Since the RESTful-WS we are 
+		using is stateless, we set the value to stateless, which instructs Spring 
+		Security not to create an HTTP session for all RESTful requests. This can 
+		help improve the performance of the RESTful services. NOTA BENE: se mette 
+		create-session=stateless, NON possono essere utilizzati nemmeno i Cookie -->
+
+	<!-- Attributo "entry-point-ref": In a standard web application, the authentication 
+		process may be automatically triggered when the client tries to access a 
+		secured resource without being authenticated – this is usually done by redirecting 
+		to a login page so that the user can enter credentials. However, for a REST 
+		Web Service this behavior doesn’t make much sense – Authentication should 
+		only be done by a request to the correct URI and all other requests should 
+		simply fail with a 401 UNAUTHORIZED status code if the user is not authenticated. -->
+
+	<!-- GESTORE: LOGIN AUTHENTICATION -->
+	<http entry-point-ref="restAuthenticationEntryPoint" pattern="/**"
+		use-expressions="true">
+		<!-- <intercept-url> tag, we set that only users with the ROLE_GESTORE 
+			role assigned can access the RESTful service. -->
+		<intercept-url pattern="/gestore/**" access="${access.level}" />
+		<intercept-url pattern="/login/*" access="permitAll" />
+		<!-- login-processing-url="/login" -->
+		<form-login authentication-success-handler-ref="mySuccessHandler"
+			login-processing-url="/login" username-parameter="user"
+			password-parameter="password" />
+		<logout logout-url="/logout" />
+	</http>
+	<beans:bean id="mySuccessHandler"
+		class="it.bologna.devastapp.security.MySavedRequestAwareAuthenticationSuccessHandler" />
+
+
+	<!-- TODO: sostituire con sicurezza authentication-manager che va su DB -->
+	<!-- The <authentication-manager >tag defines the authentication information. 
+		Here we define a simple authentication provider with a hard-coded user and 
+		password (both set to remote) with the ROLE_REMOTE role assigned. In an enterprise 
+		environment, most likely the authentication will be done by either a database 
+		or an LDAP lookup -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider>
+			<!-- user-service-ref="userDetailsService" -->
+			<user-service id="userService">
+				<user name="gestore" password="gestore" authorities="ROLE_GESTORE" />
+				<user name="app" password="app" authorities="ROLE_APP" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- User Detail Services -->
+	<!-- <beans:bean id="userDetailsService" class="com.apress.prospring3.springblog.security.provider.UserDetailsServiceImpl"/> -->
+
+
+</beans:beans>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd
+		">
+
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+
+	<!-- Si occupa della ricerca solo dei componenti Spring di tipo Controller 
+		(per questo è un file di contesto relativo solo alla webapp) -->
+	<context:component-scan base-package="it.bologna.devastapp"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<!-- TODO: A che serve? -->
+	<!-- <task:annotation-driven/> -->
+	<!-- TODO: a che serve? -->
+	<!-- <beans:bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/> -->
+
+	<!-- **************************************** -->
+	<!-- Configurazione Joda DateTime per Jackson -->
+	<!--***************** INIZIO *************** -->
+	<!-- **************************************** -->
+
+	<!-- Setto il Timezone a cui verranno convertite tutte le richieste del 
+		server -->
+	<beans:bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+		<!-- p:timeZone="#{ T(java.util.TimeZone).getTimeZone('Europe/Rome')}"> -->
+	</beans:bean>
+
+	<!-- Registro il JodaModule nell'objectMapper di Jackson -->
+	<beans:bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+		p:targetObject-ref="objectMapper" p:targetMethod="registerModule">
+		<beans:property name="arguments">
+			<beans:list>
+				<beans:bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	<!-- Setto nel mapper Jackson2ObjectMapperFactoryBean l'objectMapper e il 
+		formato data desiderato -->
+	<beans:bean id="jackson2ObjectMapperFactoryBean"
+		class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+		p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ssZ"
+		p:objectMapper-ref="objectMapper">
+	</beans:bean>
+
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- Riferimenti Converter: http://docs.spring.io/spring/docs/3.2.5.RELEASE/javadoc-api/org/springframework/http/converter/package-summary.html -->
+	<mvc:annotation-driven>
+		<!-- Setto nel MappingJackson2HttpMessageConverter di Spring MVC il Jackson2ObjectMapperFactoryBean 
+			definito -->
+		<mvc:message-converters>
+			<beans:bean
+				class="org.springframework.http.converter.StringHttpMessageConverter" />
+			<beans:bean
+				class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+			<beans:bean
+				class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+			<beans:bean
+				class="org.springframework.http.converter.FormHttpMessageConverter" />
+			<beans:bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<beans:bean
+				class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+			<beans:bean id="mappingJackson2HttpMessageConverter"
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<beans:property name="objectMapper"
+					ref="jackson2ObjectMapperFactoryBean" />
+			</beans:bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- Fonti: -->
+	<!-- http://stackoverflow.com/questions/13700853/jackson2-json-iso-8601-date-from-jodatime-in-spring-3-2rc1 -->
+	<!-- http://stackoverflow.com/questions/19460004/jackson-loses-time-offset-from-dates-when-deserializing-to-jodatime -->
+	<!-- http://joda-time.sourceforge.net/timezones.html -->
+	<!-- http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/expressions.html#expressions-beandef -->
+	<!-- http://docs.spring.io/spring/docs/3.0.x/reference/xsd-config.html#xsd-config-body-schemas-util-property-path -->
+
+	<!-- **************************************** -->
+	<!-- Configurazione Joda DateTime per Jackson -->
+	<!--***************** FINE *************** -->
+	<!-- **************************************** -->
+
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Allows for mapping the DispatcherServlet to "/" by forwarding static 
+		resource requests to the container's default Servlet -->
+	<!-- <default-servlet-handler/> -->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!-- <interceptors> -->
+	<!-- <beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" 
+		p:paramName="lang"/> -->
+	<!-- </interceptors> -->
+
+	<!-- Resolves localized messages*.properties and application.properties 
+		files in the application to allow for internationalization. The messages*.properties 
+		files translate messages, the application.properties resource bundle localizes 
+		all application specific messages such as entity names and menu items. -->
+	<beans:bean
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		id="messageSource" p:basenames="WEB-INF/i18n/messages,WEB-INF/i18n/application"
+		p:fallbackToSystemLocale="false" />
+
+	<!-- Per gestione richieste multipart: http://docs.spring.io/spring/docs/3.2.4.RELEASE/spring-framework-reference/html/mvc.html#mvc-multipart-resolver-standard -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</beans:bean>
+
+	<!-- TODO: SPOSTARE su SPRING MASTER e configurare tramite Annotation -->
+	<!-- InvioMailService: Notifiche Mail si possono configurare da xml o da 
+		codice java. Secondo le esigenze -->
+	<!-- <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
+	<!-- <beans:property name="host" value="smtp.live.com"/> -->
+	<!-- </beans:bean> -->
+
+	<!-- this is a template message that we can pre-load with default state -->
+	<!-- <beans:bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage"> -->
+	<!-- <beans:property name="from" value="fulviob@hotmail.it"/> -->
+	<!-- <beans:property name="subject" value="Your order"/> -->
+	<!-- </beans:bean> -->
+
+	<!-- <beans:bean id="invioMailService" class="it.bologna.devastapp.business.InvioMailServiceImpl"> -->
+	<!-- <beans:property name="mailSender" ref="mailSender"/> -->
+	<!-- <beans:property name="templateMessage" ref="templateMessage"/> -->
+	<!-- </beans:bean> -->
+</beans:beans>
