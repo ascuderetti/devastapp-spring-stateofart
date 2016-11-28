@@ -6,6 +6,9 @@ L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune
 [Vedi dichiarazioni su POM](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/pom.xml)
 
 # Design
+La suddivisione dei package ci da una visione di massima dell'architettura e la relativa responsabilità logica dei singoli componenti architetturali: [Vedi Package] (https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp)
+
+
 
 # Gestione Eccezioni
 
