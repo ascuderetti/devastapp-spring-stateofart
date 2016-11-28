@@ -8,16 +8,16 @@ L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune
 # Design
 La suddivisione dei package da una visione di massima dell'architettura e la relativa responsabilità logica dei singoli componenti: [Vedi Package] (https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp)
 
-* Presentation Layer
+* [Presentation Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/presentation)
   * Controller
-* Business Layer
+* [Business Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/business)
   * Service
     * Mapper
     * Validator
     * Repository
     * Mapper
     
-* Persistence Layer
+* [Persistence Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/presentation)
 
 # Gestione Eccezioni
 
