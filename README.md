@@ -10,9 +10,9 @@ L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune
 
 # Test
 
-## Integrazione
+### Test di Integrazione
 
-## Funzionali
+## Test Funzionali
 
 # Accesso ai dati e Spring JPA
 
