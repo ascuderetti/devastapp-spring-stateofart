@@ -7,6 +7,7 @@ L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune
 
 # Architettura
 La suddivisione dei package da una visione di massima dell'architettura:[Vedi Package] (https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp).
+
 Ecco la responsabilità logica dei componenti:
 * [Presentation Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/presentation)
   * Controller
