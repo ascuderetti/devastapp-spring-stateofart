@@ -5,9 +5,9 @@ L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune
 # Librerie Utilizzate
 [Vedi dichiarazioni su POM](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/pom.xml)
 
-# Design
-La suddivisione dei package da una visione di massima dell'architettura e la relativa responsabilità logica dei singoli componenti: [Vedi Package] (https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp)
-
+# Architettura
+La suddivisione dei package da una visione di massima dell'architettura:[Vedi Package] (https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp).
+Ecco la responsabilità logica dei componenti:
 * [Presentation Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/presentation)
   * Controller
 * [Business Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/business)
