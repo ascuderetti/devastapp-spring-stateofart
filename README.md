@@ -31,9 +31,9 @@ Politiche di logging applicativo:
 * Log con severity INFO: log all'ingresso e all'uscita dei metodi di tutti i componenti architetturali, Controller, Service, Mapper, Valitator, Repository)
 * Log con severity DEBUG: log degli argomenti in ingresso ai componenti "Service", in particolare viene loggato il contenuto degli oggetti di modello.
 
-Chi sviluppa le funzionalità non si deve preoccupare di scrivere righe di loggig. [Il Log è gestito tramite un aspect]
+[Il Log è gestito tramite un aspect]
 (https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (per individuare ad esempio i componenti Service, tramite l'annotation @Service).
-E' importante quindi attenersi alle convenzioni definite.
+Chi sviluppa le funzionalità non si deve preoccupare di scrivere righe di loggig ma deve attenersi alle convenzioni definite.
 
 # Accesso ai dati e Spring JPA
 [BOZZA]
