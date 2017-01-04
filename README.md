@@ -23,21 +23,28 @@ Ecco la responsabilità logica dei componenti:
 # Gestione Eccezioni
 Due tipi di eccezione:
 * [Eccezioni di Sistema](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/ErroreSistema.java), eredita da "RuntimeException" e viene rilanciata in caso si riscontrino errori dovuti all'implementazione del sistema software: ad esempio se dal client si richiede una modifica su db ma il campo che identifica l'ogggetto su DB (tipicamente un "ID") non è stato valorizzato. Questo non è una eccezione innescata da dati inseriti dall' utente. E' appunto un errore del sistema software, chi ha implementato il client ha dimenticato di valorizzare il campo ID...  
-* [Eccezioni di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business, non eredita da "Exception". I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non è presentata nessuna eccezione di business (ad esempio un errore di validazione...)
+* [Eccezioni di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business, non eredita da "Exception". I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non si sia presentata nessuna eccezione di business (ad esempio un errore di validazione...)
 
 # Gestione Log
 Politiche di logging applicativo:
-* Log di contesto: datetime, id univoco richiesta http, id sessione utente
+* [Log di contesto](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/log4j.xml): datetime, id univoco richiesta http, id sessione utente
 * Log con severity INFO: log all'ingresso e all'uscita dei metodi di tutti i componenti architetturali, Controller, Service, Mapper, Valitator, Repository)
 * Log con severity a DEBUG: log degli argomenti in ingresso ai componenti "Service", in particolare viene loggato il contenuto degli oggetti di modello.
 
 Chi sviluppa le funzionalità non si deve preoccupare di scrivere righe di loggig. [Il Log è gestito tramite un aspect]
 (https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (per individuare ad esempio i componenti Service, tramite l'annotation @Service).
-E' importante quindi attenersi alle convenzioni definiti nel progetto.
+E' importante quindi attenersi alle convenzioni definite.
 
 # Accesso ai dati e Spring JPA
+[BOZZA]
+E' stato utilizzato spring-data tramite seguendo una specifica nomenclatura spring sarà il framework ad implementare la corrspondente query.
+Nel caso in è stato necessario scrivere una query si è usato => https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java
 
 # Notifiche e Spring Integration
+[BOZZA]
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml
+
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java
 
 # Test
 
