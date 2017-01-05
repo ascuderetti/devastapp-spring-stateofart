@@ -28,7 +28,7 @@ Due tipi di eccezione:
 
 **Gestione Centralizzata Eccezioni**
 
-Spring, tramite l'annotation [@ControllerAdvice](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc) permette di definire un singolo controller che intercetta tutte le eccezioni generate dall'applicazione.
+Spring, tramite l'annotation [@ControllerAdvice](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#global-exception-handling) permette di definire un singolo controller che intercetta tutte le eccezioni generate dall'applicazione.
 
 Vantaggi:
 * Si sgrava lo sviluppatore dal gestire le eccezioni
