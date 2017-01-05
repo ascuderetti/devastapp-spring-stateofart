@@ -47,6 +47,7 @@ Politiche di logging applicativo:
 **Gestione Centralizzata del LOG**
 [Il Log è gestito tramite un aspect]
 (https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (ad esempio i componenti Service vengono individuati definendo un pointcut sull'annotation @Service).
+
 Vantaggi:
 * Si sgrava lo sviluppatore dalla gestione del logginge 
 * Si ottiene un codice più pulito e leggibile
