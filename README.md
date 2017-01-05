@@ -23,15 +23,17 @@ Ecco la responsabilità logica dei componenti:
 # Gestione Eccezioni
 Due tipi di eccezione:
 * [Eccezione di Sistema](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/ErroreSistema.java): eredita da "RuntimeException" e viene lanciata se si riscontrano errori dovuti all'implementazione del sistema software. Ad esempio: se dal client si richiede una modifica su db ma il campo che identifica l'oggetto su DB (tipicamente un "ID") non è stato valorizzato. Questo non è una eccezione innescata da dati inseriti dall' utente. E' appunto un errore del sistema software, chi ha implementato il client ha dimenticato di valorizzare il campo ID. Serve per avere più controllo e specificare in modo più chiaro errori di Runtime. 
+
 * [Eccezione di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business, non eredita da "Exception". I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non si sia presentata nessuna eccezione di business (ad esempio un errore di validazione...)
 
 **Gestione Centralizzata Eccezioni**
 
 Spring, tramite l'annotation [@ControllerAdvice](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc) permette di definire un singolo controller che intercetta tutte le eccezioni generate dall'applicazione.
 
-In questo modo:
-* Si sgrava lo sviluppatore dalla gestione delle eccezioni
-* Si ha una gestione uniforma e centralizzata delle eccezioni
+Vantaggi:
+* Si sgrava lo sviluppatore dal gestire le eccezioni
+* Si ottiene un codice più pulito e leggibile
+* Si realizza una gestione uniforme e centralizzata delle eccezioni
 
 La classe che implementa questa funzionalità è la [GlobalExceptionController.java](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/presentation/GlobalExceptionController.java)
@@ -42,9 +44,13 @@ Politiche di logging applicativo:
 * Log con severity INFO: log all'ingresso e all'uscita dei metodi di tutti i componenti architetturali, Controller, Service, Mapper, Valitator, Repository)
 * Log con severity DEBUG: log degli argomenti in ingresso ai componenti "Service", in particolare viene loggato il contenuto degli oggetti di modello Dto.
 
+**Gestione Centralizzata del LOG**
 [Il Log è gestito tramite un aspect]
-(https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (per individuare ad esempio i componenti Service, tramite l'annotation @Service).
-Chi sviluppa le funzionalità non si deve preoccupare di scrivere righe di loggig ma deve attenersi alle convenzioni definite.
+(https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (ad esempio i componenti Service vengono individuati definendo un pointcut sull'annotation @Service).
+Vantaggi:
+* Si sgrava lo sviluppatore dalla gestione del logginge 
+* Si ottiene un codice più pulito e leggibile
+* Si realizza una gestione uniforme e centralizzata del log
 
 # Accesso ai dati e Spring JPA
 [BOZZA]
