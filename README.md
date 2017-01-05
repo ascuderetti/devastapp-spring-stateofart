@@ -13,7 +13,7 @@ Ecco la responsabilità logica dei componenti:
 * [Business Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/business)
   * Service: contiene la logica di business. Orchestra componenti di mapping, validazione, integrazione. Espone generalmente delle operazioni transazionali. Tipicamente la sequenza di componenti richiamata è questa:
     1. Mapper: mapping da Dto ad Entity ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java))
-    2. Validator: validazione regole di business ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/validator/ProdottoValidatorImpl.java)
+    2. Validator: validazione regole di business ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/validator/ProdottoValidatorImpl.java))
     3. Repository: componente di interfacciamento a DB ([esempio]())
     4. Mapper: mapping da Entity a Dto ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java))
     
