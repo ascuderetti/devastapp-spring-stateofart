@@ -45,17 +45,22 @@ Politiche di logging applicativo:
 * Log con severity DEBUG: log degli argomenti in ingresso ai componenti "Service", in particolare viene loggato il contenuto degli oggetti di modello Dto.
 
 **Gestione Centralizzata del LOG**
+
 [Il Log è gestito tramite un aspect]
 (https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/log/LoggingAspect.java) che opera in accordo con le convenzioni su package e annotation spring (ad esempio i componenti Service vengono individuati definendo un pointcut sull'annotation @Service).
 
 Vantaggi:
-* Si sgrava lo sviluppatore dalla gestione del logginge 
+* Si sgrava lo sviluppatore dalla gestione del logging
 * Si ottiene un codice più pulito e leggibile
 * Si realizza una gestione uniforme e centralizzata del log
 
-# Accesso ai dati e Spring JPA
-[BOZZA]
-E' stato utilizzato [spring-data-jpa](http://projects.spring.io/spring-data-jpa/) tramite seguendo una specifica nomenclatura spring sarà il framework ad implementare la corrspondente query.
+# Accesso al DB e ORM
+E' stato utilizzato [spring-data-jpa](http://projects.spring.io/spring-data-jpa/) e Hibernate.
+Funzionalità rilevanti:
+* Utilizzando delle specifiche configurazioni e convenzioni sulla nomenclatura è possibile delegare a "spring-data-jpa" l'implementazione delle query ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/LocaleRepository.java)) 
+* Nei casi in cui si è resa necessaria una implementazione custom delle query JPA
+
+tramite seguendo una specifica nomenclatura spring sarà il framework ad implementare la corrspondente query.
 Nel caso in è stato necessario scrivere una query si è usato =>https://github.com/querydsl/querydsl/tree/master/querydsl-jpa.  Esempio => https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java
 
 # Notifiche e Spring Integration
