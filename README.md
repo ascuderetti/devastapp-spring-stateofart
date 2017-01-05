@@ -56,12 +56,10 @@ Vantaggi:
 
 # Accesso al DB e ORM
 E' stato utilizzato [spring-data-jpa](http://projects.spring.io/spring-data-jpa/) e Hibernate.
-Funzionalità rilevanti:
-* Utilizzando delle specifiche configurazioni e convenzioni sulla nomenclatura è possibile delegare a "spring-data-jpa" l'implementazione delle query ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/LocaleRepository.java)) 
-* Nei casi in cui si è resa necessaria una implementazione custom delle query JPA
 
-tramite seguendo una specifica nomenclatura spring sarà il framework ad implementare la corrspondente query.
-Nel caso in è stato necessario scrivere una query si è usato =>https://github.com/querydsl/querydsl/tree/master/querydsl-jpa.  Esempio => https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java
+Funzionalità rilevanti:
+* [Query-method](http://docs.spring.io/spring-data/jpa/docs/1.6.2.RELEASE/reference/htmlsingle/#repositories.query-methods) - creazione query automatica: utilizzando specifiche configurazioni e convenzioni di nomenclatura nei nomi dei metodi è possibile delegare a "spring-data-jpa" l'implementazione delle query ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/LocaleRepository.java)) 
+* [Query-Dsl JPA](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa) - query tipizzate: nei casi in cui si è utilizzata una implementazione custom, le query sono state scritte con query-dsl ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java))
 
 # Notifiche e Spring Integration
 [BOZZA]
