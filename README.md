@@ -62,10 +62,15 @@ Funzionalità rilevanti:
 * [Query-Dsl JPA](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa) - query tipizzate: nei casi in cui si è utilizzata una implementazione custom, le query sono state scritte con query-dsl ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java))
 
 # Notifiche e Spring Integration
-[BOZZA]
-https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml
+Per il sistema di notifiche è stata utilizzato una architettura "Pipes-and-Filters" basata su code, scambio di messaggi ed enterprise integrazion pattern (EIP).
+Il framework utilizzato è [Spring-Integration](https://projects.spring.io/spring-integration/).
+Un esempio è l' invio di una notifica push ai dispositivi mobile che comporta l'integrazione con 3 sistemi diversi, uno per ogni tipo di dispositivo (Android, Iphone, Windows).
+[L' interfaccia Gateway](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java) costituisce il ponte tra l'architettura "Layered" e l'architettura "Pipes-and-Filters".
 
-https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java
+Questa interfaccia da accesso al [contesto di spring integration](
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml) in cui il flusso è definito tramite EIP (code, router, splitter ecc..).
+
+
 
 # Test
 
