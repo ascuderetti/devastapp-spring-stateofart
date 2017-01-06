@@ -24,7 +24,7 @@ Ecco la responsabilità logica dei componenti:
 Due tipi di eccezione:
 * [Eccezione di Sistema](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/ErroreSistema.java): eredita da "RuntimeException" e viene lanciata se si riscontrano errori dovuti all'implementazione del sistema software. Ad esempio: se dal client si richiede una modifica su db ma il campo che identifica l'oggetto su DB (tipicamente un "ID") non è stato valorizzato. Questo non è una eccezione innescata da dati inseriti dall' utente. E' appunto un errore del sistema software, chi ha implementato il client ha dimenticato di valorizzare il campo ID. Serve per avere più controllo e specificare in modo più chiaro errori di Runtime. 
 
-* [Eccezione di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business, non eredita da "Exception". I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non si sia presentata nessuna eccezione di business (ad esempio un errore di validazione...)
+* [Segnalazione di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business che possono avere diversi tipi di severity (errori, ma anche informazioni), non eredita da "Exception" (per questo ho usato il termine "segnalazione). I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non si sia presentata nessuna eccezione di business (ad esempio un errore di validazione...)
 
 **Gestione Centralizzata Eccezioni**
 
@@ -80,9 +80,9 @@ Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla no
 * DB: e' stato creato un DB "hsql" interno al progetto che veniva ricreato ad ogni esecuzione dei test e popolato dal test in base alla casistica da riprodurre.
 * Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...). E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock. Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
 
-*Test Funzionali*
-La struttura di test di spring permette di creare un contesto di test che simulare chiamate http senza la necessità di deploy su un application server.
-E' stato possibile quindi implementare test di casi d'uso completi puntando direttamente alle API REST esposte. Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
+Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
+E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sul server.
+Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
 [Un esempio di test http](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java).
 
@@ -90,12 +90,24 @@ https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/
 Per gestire il mapping tra i due principali oggetti di modello è stato usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
 Un esempio di [mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
 
-
-# Geolocalizzazione
+# Ricerche e Geolocalizzazione
+Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (hibernate-serch)[http://hibernate.org/search/].
+[Un esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
 
 # Audit
+E' stato usato [Hibernet-Envers](http://docs.jboss.org/hibernate/core/4.2/devguide/en-US/html/ch15.html).
 
+Ecco [un esempio di entity](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/entity/MovimentiOfferta.java) a cui è stata aggiunta l'annotation "@Audited" per effettuare l'audit e tracciare quindi su db tutti i cambiamenti di stato. Notare che sarà quindi necessario creare una specifica tabella su db.
+
+Segnalo [questo post](http://blog.octo.com/en/audit-with-jpa-creation-and-update-date/) che illustra le possibili alternative per la gestione dell'Audit.
 
 # Debiti Tecnici
 In questo progetto ci sono anche soluzioni tecniche da evitare.
 Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E' meglio utilizzare un approccio che non lega l'ambiente alla fase di compilazione, quindi o esternalizzare le variabili direttamente nell'ambiente [ https://12factor.net/it/ ] o sfruttare funzionalità specifiche di alcuni application server che associano le variabili di ambiente a tempo di deploy [ad esempio deployment-plan su oracle weblogic]. Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
+
+# Finale
+[BOZZA - da sviluppare]
+Questo progetto risale al 2014, è stata creato per una startup, caricato su github perchè ancora oggi riuso soluzioni in progetti enterprise su cui mi capita di lavorare. startup decollata / formativo passione studio libri / un anno fatto con passione ne vale 5 fatti senza troppo coinvolgimento / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc...
+
+
+
