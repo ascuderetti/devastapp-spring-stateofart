@@ -80,15 +80,16 @@ Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla no
 * DB: e' stato creato un DB "hsql" interno al progetto che veniva ricreato ad ogni esecuzione dei test e popolato dal test in base alla casistica da riprodurre.
 * Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...). E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock. Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
 
-
-
-
-### Test Funzionali
-Grazie al client ed al contesto mock è possibile eseguire test funzionali in locale senza la necessità di deploy su application server.
-https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java
-
+*Test Funzionali*
+La struttura di test di spring permette di creare un contesto di test che simulare chiamate http senza la necessità di deploy su un application server.
+E' stato possibile quindi implementare test di casi d'uso completi puntando direttamente alle API REST esposte. Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
+[Un esempio di test http](
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java).
 
 # Mapping Dto<=>Entity
+Per gestire il mapping tra i due principali oggetti di modello è stato usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
+Un esempio di [mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
+
 
 # Geolocalizzazione
 
