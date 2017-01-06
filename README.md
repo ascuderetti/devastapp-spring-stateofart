@@ -74,10 +74,16 @@ https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/
 
 
 # Test
+[BOZZA]
 
 ### Test di Integrazione
+Mock => http://www.baeldung.com/mockito-behavior
+DB => locale "hsqldb" tutti i test fanno riferimento a questo DB ogni test in fase di startup popola il db con i dati necessari alla casistica di test e svuota il db in fase di teardown. Si è cercato di creare un ambiente locale il più possibile autonomo in modo da anticipare il prima possibile eventuali errori o regressioni e mantenere il più bassa possibile la dipendenza da un ambiente centrale di integrazione.
 
 ### Test Funzionali
+Grazie al client ed al contesto mock è possibile eseguire test funzionali in locale senza la necessità di deploy su application server.
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java
+
 
 # Mapping Dto<=>Entity
 
