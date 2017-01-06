@@ -65,10 +65,11 @@ Funzionalità rilevanti:
 Per il sistema di notifiche è stata utilizzato una architettura "Pipes-and-Filters" basata su code, scambio di messaggi ed enterprise integrazion pattern (EIP).
 Il framework utilizzato è [Spring-Integration](https://projects.spring.io/spring-integration/).
 Un esempio è l' invio di una notifica push ai dispositivi mobile che comporta l'integrazione con 3 sistemi diversi, uno per ogni tipo di dispositivo (Android, Iphone, Windows).
+
 [L' interfaccia Gateway](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java) costituisce il ponte tra l'architettura "Layered" e l'architettura "Pipes-and-Filters".
 
 Questa interfaccia da accesso al [contesto di spring integration](
-https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml) in cui il flusso è definito tramite EIP (code, router, splitter ecc..).
+https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml) in cui il flusso operativo è definito tramite EIP (code, router, splitter ecc..).
 
 
 
