@@ -74,11 +74,14 @@ https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/
 
 
 # Test
-[BOZZA]
+Oltre ad avere una copertura totale di test, l'obiettivo è stato quello di rendere l'ambiente locale il più possibile autonomo in modo da poter simulare tramite test comportamenti reali. 
 
-### Test di Integrazione
-Mock => http://www.baeldung.com/mockito-behavior
-DB => locale "hsqldb" tutti i test fanno riferimento a questo DB ogni test in fase di startup popola il db con i dati necessari alla casistica di test e svuota il db in fase di teardown. Si è cercato di creare un ambiente locale il più possibile autonomo in modo da anticipare il prima possibile eventuali errori o regressioni e mantenere il più bassa possibile la dipendenza da un ambiente centrale di integrazione.
+Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla nostra applicazione:
+* DB: e' stato creato un DB "hsql" interno al progetto che veniva ricreato ad ogni esecuzione dei test e popolato dal test in base alla casistica da riprodurre.
+* Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...). E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock. Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
+
+
+
 
 ### Test Funzionali
 Grazie al client ed al contesto mock è possibile eseguire test funzionali in locale senza la necessità di deploy su application server.
