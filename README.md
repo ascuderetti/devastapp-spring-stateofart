@@ -19,7 +19,9 @@ Ecco la responsabilità logica dei componenti:
     
 * [Persistence Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/persistence)
   * Repository: espone i metodi di accesso a DB ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiLocaleRepository.java))
-  
+
+* Enterprise Integration Layer (vedi paragrafo "Notifiche e Spring Integration"): aggiunge uno strato 
+
 # Gestione Eccezioni
 Due tipi di eccezione:
 * [Eccezione di Sistema](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/ErroreSistema.java): eredita da "RuntimeException" e viene lanciata se si riscontrano errori dovuti all'implementazione del sistema software. Ad esempio: se dal client si richiede una modifica su db ma il campo che identifica l'oggetto su DB (tipicamente un "ID") non è stato valorizzato. Questo non è una eccezione innescata da dati inseriti dall' utente. E' appunto un errore del sistema software, chi ha implementato il client ha dimenticato di valorizzare il campo ID. Serve per avere più controllo e specificare in modo più chiaro errori di Runtime. 
@@ -62,7 +64,7 @@ Funzionalità rilevanti:
 * [Query-Dsl JPA](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa) - query tipizzate: nei casi in cui si è utilizzata una implementazione custom, le query sono state scritte con query-dsl ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java))
 
 # Notifiche e Spring Integration
-Per il sistema di notifiche è stata utilizzato una architettura "Pipes-and-Filters" basata su code, scambio di messaggi ed enterprise integrazion pattern (EIP).
+Per il sistema di notifiche è stata utilizzato una architettura "Pipes-and-Filters" (o, forse più appropiato, "Pipes-and-Processing") basata su code, scambio di messaggi ed enterprise integrazion pattern (EIP).
 Il framework utilizzato è [Spring-Integration](https://projects.spring.io/spring-integration/).
 Un esempio è l' invio di una notifica push ai dispositivi mobile che comporta l'integrazione con 3 sistemi diversi, uno per ogni tipo di dispositivo (Android, Iphone, Windows).
 
@@ -78,7 +80,10 @@ Oltre ad avere una copertura totale di test, l'obiettivo è stato quello di rend
 
 Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla nostra applicazione:
 * DB: e' stato creato un DB "hsql" interno al progetto che veniva ricreato ad ogni esecuzione dei test e popolato dal test in base alla casistica da riprodurre.
-* Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...). E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock. Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
+* Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...).
+E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock.
+
+Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
 
 Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
 E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sul server.
@@ -103,11 +108,19 @@ Segnalo [questo post](http://blog.octo.com/en/audit-with-jpa-creation-and-update
 
 # Debiti Tecnici
 In questo progetto ci sono anche soluzioni tecniche da evitare.
-Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E' meglio utilizzare un approccio che non lega l'ambiente alla fase di compilazione, quindi o esternalizzare le variabili direttamente nell'ambiente [ https://12factor.net/it/ ] o sfruttare funzionalità specifiche di alcuni application server che associano le variabili di ambiente a tempo di deploy [ad esempio deployment-plan su oracle weblogic]. Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
 
-# Finale
+Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E' meglio utilizzare un approccio che non lega l'ambiente alla fase di compilazione, quindi o esternalizzare le variabili direttamente nell'ambiente [ https://12factor.net/it/ ] o sfruttare funzionalità specifiche di alcuni application server che associano le variabili di ambiente a tempo di deploy [ad esempio deployment-plan su oracle weblogic].
+
+Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
+
+# Considerazioni Finali
 [BOZZA - da sviluppare]
-Questo progetto risale al 2014, è stata creato per una startup, caricato su github perchè ancora oggi riuso soluzioni in progetti enterprise su cui mi capita di lavorare. startup decollata / formativo passione studio libri / un anno fatto con passione ne vale 5 fatti senza troppo coinvolgimento / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc...
+Questo progetto è stato sviluppato nel 2014 per una startup (di cui facevo parte). L'avventura si è concluso con è la piattaforma. Mi porto dietro queste riflessioni:
+- Passione poco tempo....riscontri anche a lavoro
+- Riuso soluzioni tutt'ora
+- Visione d'insieme
+ecc..
 
+soluzioni in progetti enterprise su cui mi capita di lavorare. startup decollata / formativo passione studio libri / un anno fatto con passione ne vale 5 fatti senza troppo coinvolgimento / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc...
 
 
