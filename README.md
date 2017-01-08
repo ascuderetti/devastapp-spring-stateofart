@@ -1,4 +1,4 @@
-Applicazione web di una piattaforma multi-sided di coupon geolocalizzate.
+Applicazione web di una piattaforma multi-sided di coupon geolocalizzati.
 Sviluppata cercando di utilizzare linee guida e soluzioni efficenti.
 L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune soluzioni tecniche o di design che ritengo interessanti e riutilizzabili in altri contesti.
 
@@ -64,19 +64,19 @@ Funzionalità rilevanti:
 * [Query-Dsl JPA](https://github.com/querydsl/querydsl/tree/master/querydsl-jpa) - query tipizzate: nei casi in cui si è utilizzata una implementazione custom, le query sono state scritte con query-dsl ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiOffertaRepositoryImpl.java))
 
 # Notifiche e Spring Integration
-Per il sistema di notifiche è stata utilizzato una architettura "Pipes-and-Filters" (o, forse più appropiato, "Pipes-and-Processing") basata su code, scambio di messaggi ed enterprise integrazion pattern (EIP).
+Per il sistema di notifiche è stata utilizzata una architettura "Pipes-and-Filters" (o, forse più appropiato, "Pipes-and-Processing") basata su code, scambio di messaggi ed enterprise integration pattern (EIP).
 Il framework utilizzato è [Spring-Integration](https://projects.spring.io/spring-integration/).
 Un esempio è l' invio di una notifica push ai dispositivi mobile che comporta l'integrazione con 3 sistemi diversi, uno per ogni tipo di dispositivo (Android, Iphone, Windows).
 
 [L' interfaccia Gateway](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java) costituisce il ponte tra l'architettura "Layered" e l'architettura "Pipes-and-Filters".
 
-Questa interfaccia da accesso al [contesto di spring integration](
+Questa interfaccia da l'accesso al [contesto di spring integration](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml) in cui il flusso operativo è definito tramite EIP (code, router, splitter ecc..).
 
 
 
 # Test
-Oltre ad avere una copertura totale di test, l'obiettivo è stato quello di rendere l'ambiente locale il più possibile autonomo in modo da poter simulare tramite test comportamenti reali. 
+Oltre ad avere una copertura totale di test, l'obiettivo è stato quello di rendere l'ambiente tale da poter testare, in locale, quante più casisistiche possibili.
 
 Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla nostra applicazione:
 * DB: e' stato creato un DB "hsql" interno al progetto che veniva ricreato ad ogni esecuzione dei test e popolato dal test in base alla casistica da riprodurre.
@@ -86,13 +86,13 @@ E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powerm
 Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
 
 Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
-E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sul server.
+E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sull'application server.
 Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
 [Un esempio di test http](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java).
 
 # Mapping Dto<=>Entity
-Per gestire il mapping tra i due principali oggetti di modello è stato usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
+Per gestire il mapping tra i due principali oggetti di modello è stata usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
 Un esempio di [mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
 
 # Ricerche e Geolocalizzazione
@@ -114,13 +114,18 @@ Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E'
 Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
 
 # Considerazioni Finali
-[BOZZA - da sviluppare]
-Questo progetto è stato sviluppato nel 2014 per una startup (di cui facevo parte). L'avventura si è concluso con è la piattaforma. Mi porto dietro queste riflessioni:
-- Passione poco tempo....riscontri anche a lavoro
-- Riuso soluzioni tutt'ora
-- Visione d'insieme
-ecc..
+Questo progetto è stato sviluppato nel 2014 per una startup, di cui facevo parte e che ha finito il suo corso.
+
+Premesso che lo sviluppo di questo progetto e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato di un anno è comunque limitato, mi porto dietro la considerazione che "un anno fatto con passione, perseguendo un obiettivo chiaro ne vale dieci fatti con approssimazione".
+
+Parte delle soluzioni sono state acquisite per lo più leggendo libri (alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) e [qui quelli non tecnici](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93).
+
+Le soluzioni elencate sono quasi tutte assodate da tempo, eppure capita ancora oggi in ambito lavorativo di trovare progetti che strutturano aspetti del software in modo meno efficiente...ad esempio gestione "anarchica" del logging, mapping scritti a mano campo per campo e, forse la più diffusa, i test vengono ignorati o strutturati in modo parziale con la conseguenza che la qualità del prodotto ma anche la qualità della vita lavorativa si abbassa.
+
+
+innovazione da intraprendere per crescere, ricordandosi che si cresce anche solo provando strade nuove e sbagliando .
+
+
+Ultima nota: il progetto come dicevo è del 2014, alcune tecnologie nel frattempo si sono evolute e altre sono nate, monitorare l'andamento della tecnologia fa parte della gestione di un progetto.
 
 soluzioni in progetti enterprise su cui mi capita di lavorare. startup decollata / formativo passione studio libri / un anno fatto con passione ne vale 5 fatti senza troppo coinvolgimento / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc...
-
-
