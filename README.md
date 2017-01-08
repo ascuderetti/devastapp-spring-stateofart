@@ -20,7 +20,7 @@ Ecco la responsabilità logica dei componenti:
 * [Persistence Layer](https://github.com/ascuderetti/devastapp-spring-stateofart/tree/master/src/main/java/it/bologna/devastapp/persistence)
   * Repository: espone i metodi di accesso a DB ([esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/MovimentiLocaleRepository.java))
 
-* Enterprise Integration Layer (vedi paragrafo "Notifiche e Spring Integration"): aggiunge uno strato 
+* Enterprise Integration Layer (vedi paragrafo "Notifiche e Spring Integration"): integrazione con sistemi esterni
 
 # Gestione Eccezioni
 Due tipi di eccezione:
