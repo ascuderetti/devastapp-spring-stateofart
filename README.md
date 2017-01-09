@@ -122,7 +122,7 @@ Parte delle soluzioni sono state acquisite per lo più leggendo libri (alcuni li
 
 Le soluzioni elencate sono quasi tutte assodate da parecchio tempo, eppure capita ancora oggi in ambito lavorativo di trovare progetti che strutturano aspetti del software in modo meno efficiente, ad esempio gestione "anarchica" del logging, mapping scritti a mano campo per campo, i test parziali e mal strutturati. La conseguenza è un abbassamento della qualità del prodotto sw ma, soprattutto, della qualità della vita lavorativa.
 
-Mi aspettavo che fosse l'esperienza lavorativa costellata di senior, pm, budget, aziende, a darmi un valore aggiunto per portare avanti questa esperienza, per certi versi "amatoriale", invece è stato più il contrario.
+Mi aspettavo che fosse l'esperienza lavorativa costellata di senior, pm, budget, aziende, a darmi un valore aggiunto per portare avanti questa esperienza, per certi versi "amatoriale", ma invece è stato più il contrario.
 
 Perchè?
 
