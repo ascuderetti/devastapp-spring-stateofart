@@ -74,7 +74,6 @@ Questa interfaccia da l'accesso al [contesto di spring integration](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/resources/META-INF/spring/spring-integration-context.xml) in cui il flusso operativo è definito tramite EIP (code, router, splitter ecc..).
 
 
-
 # Test
 Oltre ad avere una copertura totale di test, l'obiettivo è stato quello di rendere l'ambiente tale da poter testare, in locale, quante più casisistiche possibili.
 
@@ -114,13 +113,23 @@ Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E'
 Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
 
 # Considerazioni Finali
-Questo progetto è stato sviluppato nel 2014 per una startup, di cui facevo parte e che ha finito il suo corso.
-
-Premesso che lo sviluppo di questo progetto e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato di un anno è comunque limitato, mi porto dietro la considerazione che "un anno fatto con passione, perseguendo un obiettivo chiaro ne vale dieci fatti con approssimazione".
+[Bozza]
+Questo progetto è stato sviluppato nell'arco di un anno, il 2014, per una startup, di cui facevo parte e che ha finito il suo corso.
+Lo sviluppo e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato è stato limitato.
 
 Parte delle soluzioni sono state acquisite per lo più leggendo libri (alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) e [qui quelli non tecnici](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93).
 
-Le soluzioni elencate sono quasi tutte assodate da tempo, eppure capita ancora oggi in ambito lavorativo di trovare progetti che strutturano aspetti del software in modo meno efficiente...ad esempio gestione "anarchica" del logging, mapping scritti a mano campo per campo e, forse la più diffusa, i test vengono ignorati o strutturati in modo parziale con la conseguenza che la qualità del prodotto ma anche la qualità della vita lavorativa si abbassa.
+Le soluzioni elencate sono quasi tutte assodate da parecchio tempo, eppure capita ancora oggi in ambito lavorativo di trovare progetti che strutturano aspetti del software in modo meno efficiente, ad esempio gestione "anarchica" del logging, mapping scritti a mano campo per campo, i test parziali e mal strutturati. La conseguenza è un abbassamento della qualità del prodotto sw ma, soprattutto, della qualità della vita lavorativa.
+
+Mi aspettavo che fosse l'esperienza lavorativa costellata di senior, pm, budget, aziende, a darmi un valore aggiunto per portare avanti questa esperienza, per certi versi "amatoriale", invece è stato più il contrario.
+
+Perchè?
+sicuramente grandezza progetti e complessità organizzative che crescono al crescere dei progetti e solitamente diventano preponderanti rispetto alle complessità di sviluppo.
+
+Nonostante questo valgono comunque queste due motivazioni che, a mio parere, dovrebbero essere sempre presi 
+- passione obiettivi chiari anno fatto con passione, perseguendo un obiettivo chiaro ne vale dieci fatti con approssimazione
+- innovazione e best-practices ricordandoci che il lavoro è una forma di espressione della persona stessa e che l'informatica per sua, nata per redimerci dalle attività che denigrano le capacità creative della mente umana.
+- 
 
 
 innovazione da intraprendere per crescere, ricordandosi che si cresce anche solo provando strade nuove e sbagliando .
@@ -128,4 +137,4 @@ innovazione da intraprendere per crescere, ricordandosi che si cresce anche solo
 
 Ultima nota: il progetto come dicevo è del 2014, alcune tecnologie nel frattempo si sono evolute e altre sono nate, monitorare l'andamento della tecnologia fa parte della gestione di un progetto.
 
-soluzioni in progetti enterprise su cui mi capita di lavorare. startup decollata / formativo passione studio libri / un anno fatto con passione ne vale 5 fatti senza troppo coinvolgimento / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc...
+soluzioni in progetti enterprise su cui mi capita di lavorare. / formativo passione studio libri / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc... / il lavoro ci rappresenta
