@@ -113,7 +113,8 @@ Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E'
 Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
 
 # Considerazioni Finali
-[Bozza 
+*[Bozza]*
+
 Questo progetto è stato sviluppato nell'arco di un anno, nel 2014, per una startup di cui facevo parte e che ha finito il suo corso.
 Lo sviluppo e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato è stato limitato.
 
