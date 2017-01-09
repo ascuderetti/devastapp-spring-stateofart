@@ -115,7 +115,7 @@ Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le m
 # Considerazioni Finali
 *[Bozza]*
 
-Questo progetto è stato sviluppato nell'arco di un anno, nel 2014, per una startup di cui facevo parte e che ha finito il suo corso.
+Questo progetto è stato sviluppato nell'arco di un anno, il 2014, per una startup di cui facevo parte e che ha finito il suo corso.
 Lo sviluppo e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato è stato limitato.
 
 Parte delle soluzioni sono state acquisite per lo più leggendo libri (alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) e [qui quelli non tecnici](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93)).
