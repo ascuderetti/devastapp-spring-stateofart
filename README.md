@@ -121,6 +121,15 @@ Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le m
 # Alcuni riferimenti
 Questo progetto è stato sviluppato, in parallelo ad una classica attività lavorativa, nell'arco di un anno, il 2014, per una startup di cui facevo parte e che ha finito il suo corso.
 
-Per acquisire le conoscenze sono stati fondamentali i libri.
+Per acquisire le conoscenze sono stati fondamentali i libri:
 * [Qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) quelli tecnici da cui provengono alcune soluzioni.
 * [Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) quelli su gestione di una startup e alcuni temi correlati.
+
+A seguire degli screenshot di alcuni dei tool a supporto utilizzati:
+[Business Model](https://drive.google.com/drive/u/0/folders/0B7mpSlc-TfXDa0NVOV9keTE0SzA)
+[Product Board](https://drive.google.com/open?id=0B44SqRm8M2JlVU1ldHVHYVFSSDQ)
+[Vision Board](https://drive.google.com/open?id=0B44SqRm8M2Jlc3MwNVJQSlduOHc)
+[Validation Board](https://drive.google.com/open?id=0B44SqRm8M2JlNmxVcmJqbW5xZVE)
+(su internet si trovano facilmente dei riferimenti)
+
+Per il processo di lavoro è stato utilizzato un modello Kanban.
