@@ -1,5 +1,7 @@
 Applicazione web di una piattaforma multi-sided di coupon geolocalizzati.
+
 Sviluppata cercando di utilizzare linee guida e soluzioni efficenti.
+
 L'obiettivo di questo repository git è esclusivamente quello di mostrare alcune soluzioni tecniche o di design che ritengo interessanti e riutilizzabili in altri contesti.
 
 # Librerie Utilizzate
@@ -66,6 +68,7 @@ Funzionalità rilevanti:
 # Notifiche e Spring Integration
 Per il sistema di notifiche è stata utilizzata una architettura "Pipes-and-Filters" (o, forse più appropiato, "Pipes-and-Processing") basata su code, scambio di messaggi ed enterprise integration pattern (EIP).
 Il framework utilizzato è [Spring-Integration](https://projects.spring.io/spring-integration/).
+
 Un esempio è l' invio di una notifica push ai dispositivi mobile che comporta l'integrazione con 3 sistemi diversi, uno per ogni tipo di dispositivo (Android, Iphone, Windows).
 
 [L' interfaccia Gateway](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/notifications/NotificheGateway.java) costituisce il ponte tra l'architettura "Layered" e l'architettura "Pipes-and-Filters".
@@ -86,16 +89,19 @@ Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blo
 
 Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
 E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sull'application server.
+
 Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
 [Un esempio di test http](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java).
 
 # Mapping Dto<=>Entity
 Per gestire il mapping tra i due principali oggetti di modello è stata usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
+
 Un esempio di [mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
 
 # Ricerche e Geolocalizzazione
 Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (hibernate-serch)[http://hibernate.org/search/].
+
 [Un esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
 
 # Audit
@@ -118,7 +124,3 @@ Questo progetto è stato sviluppato, in parallelo ad una classica attività lavo
 Parte delle soluzioni sono state acquisite per lo più leggendo libri. Alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it).
 
 [Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) i libri su gestione di una startup e alcuni temi correlati.
-
-
-
-
