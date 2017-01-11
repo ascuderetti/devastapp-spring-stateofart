@@ -126,7 +126,7 @@ Per acquisire le conoscenze sono stati fondamentali i libri:
 * [Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) quelli su gestione di una startup e alcuni temi correlati.
 
 A seguire degli screenshot di alcuni dei tool a supporto utilizzati:
-[Business Model](https://drive.google.com/drive/u/0/folders/0B7mpSlc-TfXDa0NVOV9keTE0SzA)
+[Business Model](https://drive.google.com/open?id=0B44SqRm8M2JlY1lGbldicmU3LUE)
 [Product Board](https://drive.google.com/open?id=0B44SqRm8M2JlVU1ldHVHYVFSSDQ)
 [Vision Board](https://drive.google.com/open?id=0B44SqRm8M2Jlc3MwNVJQSlduOHc)
 [Validation Board](https://drive.google.com/open?id=0B44SqRm8M2JlNmxVcmJqbW5xZVE)
