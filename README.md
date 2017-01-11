@@ -97,12 +97,12 @@ https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/
 # Mapping Dto<=>Entity
 Per gestire il mapping tra i due principali oggetti di modello è stata usata la libreria [MapStruct](http://mapstruct.org/) che automatizza la generazione dei mapper tramite convenzioni sui nomi e configurazioni sull'interfaccia (unico componente da realizzare) 
 
-Un esempio di [mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
+Un [esempio di mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
 
 # Ricerche e Geolocalizzazione
-Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (hibernate-serch)[http://hibernate.org/search/].
+Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (Hibernat Search)[http://hibernate.org/search/].
 
-[Un esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
+Un [esempio di ricerca geolocalizzata](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
 
 # Audit
 E' stato usato [Hibernet Envers](http://docs.jboss.org/hibernate/core/4.2/devguide/en-US/html/ch15.html).
