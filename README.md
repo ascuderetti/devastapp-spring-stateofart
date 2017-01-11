@@ -105,7 +105,7 @@ Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (hi
 [Un esempio](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
 
 # Audit
-E' stato usato [Hibernet-Envers](http://docs.jboss.org/hibernate/core/4.2/devguide/en-US/html/ch15.html).
+E' stato usato [Hibernet Envers](http://docs.jboss.org/hibernate/core/4.2/devguide/en-US/html/ch15.html).
 
 Ecco [un esempio di entity](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/entity/MovimentiOfferta.java) a cui è stata aggiunta l'annotation "@Audited" per effettuare l'audit e tracciare quindi su db tutti i cambiamenti di stato. Notare che sarà quindi necessario creare una specifica tabella su db.
 
@@ -121,6 +121,6 @@ Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le m
 # Alcuni riferimenti
 Questo progetto è stato sviluppato, in parallelo ad una classica attività lavorativa, nell'arco di un anno, il 2014, per una startup di cui facevo parte e che ha finito il suo corso.
 
-Parte delle soluzioni sono state acquisite per lo più leggendo libri. Alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it).
-
-[Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) i libri su gestione di una startup e alcuni temi correlati.
+Per acquisire le conoscenze sono stati fondamentali i libri.
+* [Qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) quelli tecnici da cui provengono alcune soluzioni.
+* [Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) quelli su gestione di una startup e alcuni temi correlati.
