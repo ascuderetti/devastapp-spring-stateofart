@@ -89,8 +89,8 @@ Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blo
 
 Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
 E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sull'application server.
-
 Per effettuare le chiamate è stato usato il client spring [RestTemplate](http://www.baeldung.com/rest-template)
+
 [Un esempio di test http](
 https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/funzionali/OffertaAppHttpTest.java).
 
