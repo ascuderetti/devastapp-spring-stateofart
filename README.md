@@ -100,7 +100,7 @@ Per gestire il mapping tra i due principali oggetti di modello è stata usata la
 Un [esempio di mapper](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/mapper/PosizioneMapper.java).
 
 # Ricerche e Geolocalizzazione
-Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando (Hibernat Search)[http://hibernate.org/search/].
+Le ricerche filtrate per geolocalizzazione sono state realizzate utilizzando [Hibernat Search](http://hibernate.org/search/).
 
 Un [esempio di ricerca geolocalizzata](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/persistence/OffertaRepositoryImpl.java).
 
