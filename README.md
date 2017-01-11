@@ -112,38 +112,13 @@ Ad esempio la profilazione delle variabili di ambiente tramite profilo maven. E'
 
 Gli script di creazione DB (DDL) non usano ancora (il progetto è una beta) le migration per tenere traccia del versionamento del DB, tool che consentono di gestire le migration sono [FlyWayDB](https://flywaydb.org/) o [MyBatisMigration](http://www.mybatis.org/migrations/). Questi ed altri debiti tecnici sono tracciati in una Kanban (privata).
 
-# Considerazioni Finali
-*[Bozza]*
+# Alcuni riferimenti
+Questo progetto è stato sviluppato, in parallelo ad una classica attività lavorativa, nell'arco di un anno, il 2014, per una startup di cui facevo parte e che ha finito il suo corso.
 
-Questo progetto è stato sviluppato nell'arco di un anno, il 2014, per una startup di cui facevo parte e che ha finito il suo corso.
-Lo sviluppo e in generale tutta la gestione della startup è avvenuta in parallelo ad una classica attività lavorativa, quindi il tempo dedicato è stato limitato.
+Parte delle soluzioni sono state acquisite per lo più leggendo libri. Alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it).
 
-Parte delle soluzioni sono state acquisite per lo più leggendo libri (alcuni li trovate [qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) e [qui quelli non tecnici](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93)).
-
-Le soluzioni elencate sono quasi tutte assodate da parecchio tempo, eppure capita ancora oggi in ambito lavorativo di trovare progetti che strutturano aspetti del software in modo meno efficiente, ad esempio gestione "anarchica" del logging, mapping scritti a mano campo per campo, i test parziali e mal strutturati. La conseguenza è un abbassamento della qualità del prodotto sw ma, soprattutto, della qualità della vita lavorativa.
-
-Mi aspettavo che fosse l'esperienza lavorativa costellata di senior, pm, budget, aziende, a darmi un valore aggiunto per portare avanti questa esperienza, per certi versi "amatoriale", ma invece è stato più il contrario.
-
-Perchè?
-
--perchè è stato un lavoro con obiettivo chiaro condiviso, che presupponeva un grande beneficio. Queste sono le premesse che hanno fatto scaturire passione e determinazione. In un "classico" contesto lavorativo questo potrebbe tradursi in un percorso di crescita professionale di valore, visione d'insieme condivisa e percezione del proprio apporto.
-
--perchè il mantra di innovazione e best-practices hanno guidato il lavoro. E questo dovrebbe
-
-dovrebbe esserci un sindacato che si occupa di questo aspetto come se fosse un benefit.
-
-Queste argomentazioni sono al di fuori 
-
-nell'accezione più positiva che 
-
--passione obiettivi chiari anno fatto con passione, perseguendo un obiettivo chiaro ne vale dieci fatti con approssimazione
--innovazione e best-practices ricordandoci che il lavoro è una forma di espressione della persona stessa e che l'informatica per sua, nata per redimerci dalle attività che denigrano le capacità creative della mente umana.
-- 
+[Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) i libri su gestione di una startup e alcuni temi correlati.
 
 
-innovazione da intraprendere per crescere, ricordandosi che si cresce anche solo provando strade nuove e sbagliando .
 
 
-Ultima nota: il progetto come dicevo è del 2014, alcune tecnologie nel frattempo si sono evolute e altre sono nate, monitorare l'andamento della tecnologia fa parte della gestione di un progetto.
-
-soluzioni in progetti enterprise su cui mi capita di lavorare. / formativo passione studio libri / critica mondo del lavoro - organizzazione / l'equazione non deve essere innovazione==il cliente non la chiede quindi puppa, ma innovazione == aumento qualità di vita lavorativa (vedetelo come un benefit) => punto di vista interno all'azienda non esterno. Colpa anche degli sviuppatori che non si fanno carico di...ecc... / il lavoro ci rappresenta
