@@ -125,7 +125,7 @@ Per acquisire le conoscenze sono stati fondamentali i libri:
 * [Qui](https://www.goodreads.com/review/list/26454731-alessandro?shelf=work-it) quelli tecnici da cui provengono alcune soluzioni.
 * [Qui](https://www.goodreads.com/review/list/26454731-alessandro?per_page=30&shelf=work-bus&utf8=%E2%9C%93) quelli su gestione di una startup e alcuni temi correlati.
 
-Per modellare aspetti di business sono stati fondamentali i seguenti tool : [Business Model](https://drive.google.com/open?id=0B44SqRm8M2JlY1lGbldicmU3LUE), [Product Board](https://drive.google.com/open?id=0B44SqRm8M2JlVU1ldHVHYVFSSDQ), [Vision Board](https://drive.google.com/open?id=0B44SqRm8M2Jlc3MwNVJQSlduOHc), [Validation Board](https://drive.google.com/open?id=0B44SqRm8M2JlNmxVcmJqbW5xZVE).
-(su internet si trovano facilmente dei riferimenti)
+Per modellare aspetti di business sono stati fondamentali i seguenti tool : [Business Model](https://drive.google.com/open?id=0B44SqRm8M2JlY1lGbldicmU3LUE), [Product Board](https://drive.google.com/open?id=0B44SqRm8M2JlVU1ldHVHYVFSSDQ), [Vision Board](https://drive.google.com/open?id=0B44SqRm8M2Jlc3MwNVJQSlduOHc), [Validation Board](https://drive.google.com/open?id=0B44SqRm8M2JlNmxVcmJqbW5xZVE)
+(su internet si trovano facilmente dei riferimenti).
 
 Per il processo di lavoro è stato utilizzato un modello Kanban.
