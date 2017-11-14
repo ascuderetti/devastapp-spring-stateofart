@@ -84,7 +84,7 @@ Ciò significa dover riprodurre o simulare, in locale, i sistemi esterni alla no
 * Gli altri sistemi sono stati riprodotti tramite Mock (ad esempio il servizio di pagamento paypal, o i server per le notifiche push su mobile...).
 E' stato utilizzato [mockito](http://www.baeldung.com/mockito-behavior) e powermock.
 
-Ecco una [classe](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
+Ecco un [esempio di test in contesto asincrono](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/java/test/it/bologna/devastapp/notifiche/NotificheGatewayFollowLocaleTest.java) e relativo [contesto spring di test](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/test/resources/META-INF/spring/spring-notifiche-test.xml).
 
 Spring permette di creare un contesto di test che simula la gestione dello strato http senza la necessità di deploy su un application server.
 E' stato possibile quindi implementare casistiche di test (tipicamente funzionali) puntando direttamente alle API REST che verranno esposte sull'application server.
