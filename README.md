@@ -30,7 +30,7 @@ Due tipi di eccezione:
 
 * [Segnalazione di Business](https://github.com/ascuderetti/devastapp-spring-stateofart/blob/master/src/main/java/it/bologna/devastapp/business/signal/BusinessSignal.java): è un oggetto di modello che rappresenta delle segnalazioni di business che possono avere diversi tipi di severity (errori, ma anche informazioni), non eredita da "Exception" (per questo ho usato il termine "segnalazione). I Dto contengono sempre una lista di segnalazioni di business, che sarà vuota nel caso in cui non si sia presentata nessuna eccezione di business (ad esempio un errore di validazione...)
 
-**Gestione Centralizzata Eccezioni**
+### Gestione Centralizzata Eccezioni
 
 Spring, tramite l'annotation [@ControllerAdvice](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#global-exception-handling) permette di definire un singolo controller che intercetta tutte le eccezioni generate dall'applicazione.
 
